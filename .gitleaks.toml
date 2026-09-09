@@ -1,0 +1,18 @@
+title = "credentials-repo gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = """
+admins.json enthaelt ausschliesslich einen verschluesselten AES-256-GCM-\
+Envelope (iv/authTag/ciphertext, base64-kodiert). Diese Werte sehen fuer \
+generische Entropie-/API-Key-Heuristiken wie Secrets aus, sind aber ohne \
+den separat gehaltenen Verschluesselungsschluessel (CREDENTIALS_ENCRYPTION_KEY, \
+NIE im Repo) wertlos - siehe SECURITY.md Abschnitt 4. Die Datei wird stattdessen \
+durch das eigene, praeziseres Schema-Gate `npm run check-no-plaintext` gegen \
+versehentliche Klartext-Felder abgesichert.
+"""
+paths = [
+  '''^admins\.json$''',
+]
