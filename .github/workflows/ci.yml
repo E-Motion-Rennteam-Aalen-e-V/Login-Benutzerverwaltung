@@ -41,7 +41,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: gitleaks
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # gitleaks/gitleaks-action@v2 verlangt seit einiger Zeit eine kostenpflichtige
+      # Lizenz fuer Organisationen. Wir nutzen stattdessen die freie Gitleaks-CLI
+      # direkt (MIT-lizenziert, kein Account/Secret noetig).
+      - name: gitleaks CLI installieren
+        run: |
+          curl -sSL https://github.com/gitleaks/gitleaks/releases/download/v8.21.2/gitleaks_8.21.2_linux_x64.tar.gz -o gitleaks.tar.gz
+          tar -xzf gitleaks.tar.gz gitleaks
+          sudo mv gitleaks /usr/local/bin/gitleaks
+
+      - name: gitleaks scan
+        run: gitleaks detect --source . --redact --verbose
