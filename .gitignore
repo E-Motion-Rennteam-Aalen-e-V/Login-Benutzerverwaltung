@@ -1,0 +1,18 @@
+# Abhaengigkeiten & Build-Output
+node_modules/
+dist/
+coverage/
+
+# Geheimnisse - NIEMALS committen (GitHub-Token, Verschluesselungsschluessel)
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor/OS
+.vscode/
+.DS_Store
+Thumbs.db

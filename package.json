@@ -1,0 +1,55 @@
+{
+  "name": "credentials-repo",
+  "version": "1.0.0",
+  "description": "Privates, verschluesseltes Credentials-Repository (Admin-Benutzer, Passwort-Hashes, Rollen) mit Zugriff ueber die GitHub Contents/Git-Data API. Wird von einer separaten App per Token als Bibliothek eingebunden.",
+  "type": "module",
+  "private": true,
+  "license": "UNLICENSED",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "SECURITY.md"
+  ],
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src scripts test --ext .ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "rotate-key": "tsx scripts/rotate-key.ts",
+    "check-no-plaintext": "tsx scripts/check-no-plaintext.ts",
+    "add-admin": "tsx scripts/manage-admin.ts add",
+    "remove-admin": "tsx scripts/manage-admin.ts remove",
+    "disable-admin": "tsx scripts/manage-admin.ts disable",
+    "enable-admin": "tsx scripts/manage-admin.ts enable",
+    "list-admins": "tsx scripts/manage-admin.ts list"
+  },
+  "dependencies": {
+    "@octokit/rest": "^21.0.2",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^22.10.2",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "eslint": "^8.57.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
