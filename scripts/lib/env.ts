@@ -9,7 +9,7 @@ import type { CredentialsStore } from "../../src/store.js";
 const ENV_PATH = resolve(process.cwd(), ".env");
 
 export function loadEnv(): void {
-  dotenv.config({ path: ENV_PATH });
+  dotenv.config({ path: ENV_PATH, override: true });
 }
 
 /**
