@@ -52,5 +52,17 @@ export {
   WeakPasswordError,
 } from "./errors.js";
 
-export { ROLE_SUPERADMIN } from "./types.js";
+export {
+  ROLE_SUPERADMIN,
+  ROLE_ADMIN,
+  ROLE_SPONSORING_MANAGER,
+  ROLE_AUDITOR,
+  ROLE_CONTENT_MANAGER,
+  ROLE_EVENT_MANAGER,
+  ROLE_MEMBER_MANAGER,
+  ROLE_TREASURER,
+  ROLE_OPERATOR,
+  ROLE_SPONSORING_VIEWER,
+  ROLE_CONTENT_EDITOR,
+} from "./types.js";
 export type { Admin, AdminsFile, AuditAction, AuditEntry, EncryptedEnvelope } from "./types.js";

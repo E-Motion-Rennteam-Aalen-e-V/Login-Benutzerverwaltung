@@ -5,8 +5,29 @@ import { z } from "zod";
  * damit die konsumierende App eigene Rollen einfuehren kann, ohne dieses
  * Paket zu aendern. "superadmin" ist die einzige Rolle mit Sonderbedeutung:
  * nur superadmin darf ueber die API andere Admins verwalten.
+ *
+ * Bekannte Rollen (Konstanten fuer typsichere Verwendung, kein Enum-Zwang):
+ *   Phase 1 (MVP):   superadmin, admin, sponsoring-manager
+ *   Phase 2 (CMS):   auditor, content-manager, event-manager, member-manager
+ *   Phase 3 (opt.):  treasurer, operator, sponsoring-viewer, content-editor
  */
+
+// Phase 1
 export const ROLE_SUPERADMIN = "superadmin" as const;
+export const ROLE_ADMIN = "admin" as const;
+export const ROLE_SPONSORING_MANAGER = "sponsoring-manager" as const;
+
+// Phase 2
+export const ROLE_AUDITOR = "auditor" as const;
+export const ROLE_CONTENT_MANAGER = "content-manager" as const;
+export const ROLE_EVENT_MANAGER = "event-manager" as const;
+export const ROLE_MEMBER_MANAGER = "member-manager" as const;
+
+// Phase 3
+export const ROLE_TREASURER = "treasurer" as const;
+export const ROLE_OPERATOR = "operator" as const;
+export const ROLE_SPONSORING_VIEWER = "sponsoring-viewer" as const;
+export const ROLE_CONTENT_EDITOR = "content-editor" as const;
 
 export const RoleSchema = z.string().min(1).max(64);
 
