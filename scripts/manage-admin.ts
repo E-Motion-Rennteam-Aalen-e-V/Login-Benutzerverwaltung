@@ -14,7 +14,7 @@
  *   tsx scripts/manage-admin.ts remove --username Linda --actor bootstrap --yes
  */
 import { loadEnv, resolveStore } from "./lib/env.js";
-import { createAdmin, setDisabled, removeAdmin } from "../src/auth.js";
+import { createAdmin, setDisabled, removeAdmin, setRoles } from "../src/auth.js";
 import { WeakPasswordError, CredentialsError } from "../src/errors.js";
 
 loadEnv();
@@ -78,6 +78,18 @@ async function main(): Promise<void> {
       console.log(`[credentials] Admin "${username}" wurde ${command === "disable" ? "deaktiviert" : "aktiviert"}.`);
       break;
     }
+    case "set-roles": {
+      const username = requireString(flags, "username");
+      const roles = requireString(flags, "roles")
+        .split(",")
+        .map((r) => r.trim())
+        .filter(Boolean);
+      const actor = (flags.actor as string) ?? "cli-operator";
+      await setRoles(store, { targetUsername: username, roles, actor });
+      // eslint-disable-next-line no-console
+      console.log(`[credentials] Rollen fuer "${username}" gesetzt: ${roles.join(", ")}`);
+      break;
+    }
     case "remove": {
       const username = requireString(flags, "username");
       const actor = (flags.actor as string) ?? "cli-operator";
@@ -108,7 +120,7 @@ async function main(): Promise<void> {
     }
     default: {
       // eslint-disable-next-line no-console
-      console.error(`Unbekannter Befehl: "${command}". Erlaubt: add | disable | enable | remove | list`);
+      console.error(`Unbekannter Befehl: "${command}". Erlaubt: add | set-roles | disable | enable | remove | list`);
       process.exitCode = 1;
     }
   }
